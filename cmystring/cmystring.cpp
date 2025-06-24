@@ -12,9 +12,14 @@ CMystring::~CMystring()
   printf("~CMystring()\n");
 }
 
-char *CMystring::get_string()
+const char *CMystring::get_string() const
 {
   return this->pchar;
+}
+
+size_t CMystring::get_len() const
+{
+  return this->st_len;
 }
 
 void CMystring::set_string(const char *cin)
@@ -23,7 +28,9 @@ void CMystring::set_string(const char *cin)
   {
     free(this->pchar);
   }
-  this->pchar = (char *)malloc(sizeof(*cin));
+  size_t st_len = strlen(cin) + 1;
+  this->st_len = st_len;
+  this->pchar = (char *)malloc(st_len);
   memset(this->pchar, 0, sizeof(*cin));
   strcpy(this->pchar, cin);
 }
