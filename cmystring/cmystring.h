@@ -23,7 +23,12 @@ public:
 
   CMystring(const CMystring &r_v);
 
+  CMystring(const char *r_v);
+  //-----------------------------------------------------------------//
   CMystring &operator=(const CMystring &r_v);
+
+  operator const char *();
+  //-----------------------------------------------------------------//
 
   char *get_string() const;
 
