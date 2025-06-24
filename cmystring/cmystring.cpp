@@ -10,9 +10,23 @@ CMystring::CMystring()
 CMystring::~CMystring()
 {
   printf("~CMystring()\n");
+  free(this->pchar);
 }
 
-const char *CMystring::get_string() const
+CMystring::CMystring(const CMystring &r_v)
+{
+  printf("CMystring(CMystring& r_v)\n");
+  this->set_string(r_v.get_string());
+}
+
+CMystring &CMystring::operator=(const CMystring &r_v)
+{
+  printf("CMystring::operator=(const CMystring &r_v)");
+  this->set_string(r_v.get_string());
+  return *this;
+}
+
+char *CMystring::get_string() const
 {
   return this->pchar;
 }

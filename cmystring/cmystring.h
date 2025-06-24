@@ -21,7 +21,11 @@ public:
 
   ~CMystring();
 
-  const char *get_string() const;
+  CMystring(const CMystring &r_v);
+
+  CMystring &operator=(const CMystring &r_v);
+
+  char *get_string() const;
 
   size_t get_len() const;
 

@@ -6,7 +6,12 @@ int main()
 {
   CMystring ss;
   ss.set_string("hello");
-  printf("%s\n", ss.get_string());
-  printf("%d\n", ss.get_len());
+
+  CMystring xx;
+  char buf[5] = "123";
+
+  printf("%s\n", xx.get_string());
+  printf("%d\n", xx.get_len());
+
   return 0;
 }
