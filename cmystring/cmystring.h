@@ -31,6 +31,10 @@ public:
 
   CMystring &operator=(CMystring &&r_v);
 
+  CMystring operator+(const CMystring &r_v);
+
+  CMystring operator+(CMystring &&r_v);
+
   operator const char *();
   //-----------------------------------------------------------------//
 
@@ -39,4 +43,6 @@ public:
   size_t get_len() const;
 
   void set_string(const char *cin);
+
+  char *make_plus(int len1, int len2, const CMystring &r_v);
 };

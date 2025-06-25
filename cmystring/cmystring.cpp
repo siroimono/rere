@@ -36,18 +36,38 @@ CMystring::CMystring(const char *r_v)
 //------------------------------------------------------------------//
 CMystring &CMystring::operator=(const CMystring &r_v)
 {
-  printf("CMystring::operator=(const CMystring &r_v)");
+  printf("CMystring::operator=\n");
   this->set_string(r_v.get_string());
   return *this;
 }
 
 CMystring &CMystring::operator=(CMystring &&r_v)
 {
-  printf("CMystring::operator=(CMystring&& r_v) - move");
+  printf("CMystring::operator= - move\n");
   free(this->pchar);
   this->pchar = r_v.pchar;
   r_v.pchar = nullptr;
   return *this;
+}
+
+CMystring CMystring::operator+(const CMystring &r_v)
+{
+  printf("CMystring::operator+\n");
+
+  CMystring tmp_obj;
+  char *p_tmpc = make_plus(this->st_len, r_v.st_len, r_v);
+  tmp_obj.pchar = p_tmpc;
+  return tmp_obj;
+}
+
+CMystring CMystring::operator+(CMystring &&r_v)
+{
+  printf("CMystring::operator+ - move\n");
+
+  CMystring tmp_obj;
+  char *p_tmpc = make_plus(this->st_len, r_v.st_len, r_v);
+  tmp_obj.pchar = p_tmpc;
+  return tmp_obj;
 }
 
 CMystring::operator const char *()
@@ -76,4 +96,12 @@ void CMystring::set_string(const char *cin)
   this->pchar = (char *)malloc(st_len);
   memset(this->pchar, 0, st_len);
   strcpy(this->pchar, cin);
+}
+
+char *CMystring::make_plus(int len1, int len2, const CMystring &r_v)
+{
+  char *p_tmpc = (char *)malloc((len1 + len2) + 1);
+  strcpy(p_tmpc, this->pchar);
+  strcat(p_tmpc, r_v.pchar);
+  return p_tmpc;
 }

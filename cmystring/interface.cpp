@@ -8,8 +8,8 @@ int main()
 
   CMystring xx(ss);
 
-  CMystring zz = "123";
+  CMystring zz = ss + move(xx);
 
-  zz = (move(CMystring("HI")));
+  printf("%s\n", zz.get_string());
   return 0;
 }
