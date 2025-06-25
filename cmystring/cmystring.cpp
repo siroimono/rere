@@ -74,6 +74,6 @@ void CMystring::set_string(const char *cin)
   size_t st_len = strlen(cin) + 1;
   this->st_len = st_len;
   this->pchar = (char *)malloc(st_len);
-  memset(this->pchar, 0, sizeof(*cin));
+  memset(this->pchar, 0, st_len);
   strcpy(this->pchar, cin);
 }

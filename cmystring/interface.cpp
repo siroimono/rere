@@ -8,7 +8,8 @@ int main()
 
   CMystring xx(ss);
 
-  CMystring zz(move(CMystring("HI")));
+  CMystring zz = "123";
 
+  zz = (move(CMystring("HI")));
   return 0;
 }
