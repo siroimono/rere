@@ -19,6 +19,14 @@ CMystring::CMystring(const CMystring &r_v)
   this->set_string(r_v.get_string());
 }
 
+CMystring::CMystring(CMystring &&r_v)
+{
+  printf("CMystring(CMystring&& r_v) - move\n");
+  free(this->pchar);
+  this->pchar = r_v.pchar;
+  r_v.pchar = nullptr;
+}
+
 CMystring::CMystring(const char *r_v)
 {
   printf("CMystring(const char* r_v)\n");
@@ -30,6 +38,15 @@ CMystring &CMystring::operator=(const CMystring &r_v)
 {
   printf("CMystring::operator=(const CMystring &r_v)");
   this->set_string(r_v.get_string());
+  return *this;
+}
+
+CMystring &CMystring::operator=(CMystring &&r_v)
+{
+  printf("CMystring::operator=(CMystring&& r_v) - move");
+  free(this->pchar);
+  this->pchar = r_v.pchar;
+  r_v.pchar = nullptr;
   return *this;
 }
 

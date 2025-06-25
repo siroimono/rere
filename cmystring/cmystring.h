@@ -13,7 +13,7 @@ using namespace std;
 class CMystring
 {
 private:
-  char *pchar;
+  char *pchar = nullptr;
   size_t st_len;
 
 public:
@@ -23,9 +23,13 @@ public:
 
   CMystring(const CMystring &r_v);
 
+  CMystring(CMystring &&r_v);
+
   CMystring(const char *r_v);
   //-----------------------------------------------------------------//
   CMystring &operator=(const CMystring &r_v);
+
+  CMystring &operator=(CMystring &&r_v);
 
   operator const char *();
   //-----------------------------------------------------------------//
