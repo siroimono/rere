@@ -50,6 +50,13 @@ CMystring &CMystring::operator=(CMystring &&r_v)
   return *this;
 }
 
+CMystring &CMystring::operator=(const char *r_v)
+{
+  printf("operator=(const char *r_v)\n");
+  this->set_string(r_v);
+  return *this;
+}
+
 CMystring CMystring::operator+(const CMystring &r_v)
 {
   printf("CMystring::operator+(const CMystring &r_v)\n");
@@ -81,6 +88,66 @@ CMystring CMystring::operator+(const char *r_v)
   return tmp_obj;
 }
 
+char &CMystring::operator[](const int r_v)
+{
+  try
+  {
+    printf("operator[](const int r_v)\n");
+    if (r_v < 0 || r_v >= strlen(this->pchar))
+    {
+      throw string("... this obj char * == nullptr... \n");
+    }
+    else if (this->pchar == nullptr)
+    {
+      throw string("... this obj char * == nullptr... \n");
+    }
+    return *(this->pchar + r_v);
+  }
+  catch (string err)
+  {
+    printf("ERR... %s\n", err.c_str());
+  }
+}
+
+CMystring &CMystring::operator+=(const CMystring &r_v)
+{
+  printf("operator+=(const CMystring &r_v)\n");
+
+  int len1 = this->st_len;
+  int len2 = r_v.st_len;
+  char *p_tmpc = this->append_1(len1, len2, r_v);
+  free(this->pchar);
+  this->pchar = p_tmpc;
+  this->st_len = strlen(this->pchar);
+  return *this;
+}
+
+CMystring &CMystring::operator+=(CMystring &&r_v)
+{
+  printf("operator+=(CMystring &&r_v)\n");
+
+  int len1 = this->st_len;
+  int len2 = r_v.st_len;
+  char *p_tmpc = this->append_1(len1, len2, r_v);
+  free(this->pchar);
+  this->pchar = p_tmpc;
+  this->st_len = strlen(this->pchar);
+  return *this;
+}
+
+CMystring &CMystring::operator+=(const char *r_v)
+{
+  printf("operator+=(const CMystring &r_v)\n");
+
+  int len1 = this->st_len;
+  int len2 = strlen(r_v);
+  char *p_tmpc = this->append_3(len1, len2, r_v);
+  free(this->pchar);
+  this->pchar = p_tmpc;
+  this->st_len = strlen(this->pchar);
+  return *this;
+}
+
 CMystring operator+(const char *pChar, CMystring &r_v) // friend
 {
   printf("operator+(const char *pChar, CMystring &r_v)\n");
@@ -101,6 +168,26 @@ CMystring operator+(const char *pChar, CMystring &&r_v) // friend
   char *p_tmpc = r_v.append_2(len1, r_v.st_len, pChar);
   tmp_obj.pchar = p_tmpc;
   return tmp_obj;
+}
+
+const char *operator+=(const char *pChar, CMystring &r_v) // friend
+{
+  printf("operator+=(const char *pChar, CMystring &r_v)\n");
+
+  int len1 = strlen(pChar);
+  int len2 = strlen(r_v.pchar);
+  const char *p_tmpc = r_v.append_2(len1, len2, pChar);
+  return p_tmpc;
+}
+
+const char *operator+=(const char *pChar, CMystring &&r_v) // friend
+{
+  printf("operator+=(const char *pChar, CMystring &&r_v)\n");
+
+  int len1 = strlen(pChar);
+  int len2 = strlen(r_v.pchar);
+  const char *p_tmpc = r_v.append_2(len1, len2, pChar);
+  return p_tmpc;
 }
 
 /*

@@ -31,15 +31,29 @@ public:
 
   CMystring &operator=(CMystring &&r_v);
 
+  CMystring &operator=(const char *r_v);
+
   CMystring operator+(const CMystring &r_v);
 
   CMystring operator+(CMystring &&r_v);
 
   CMystring operator+(const char *r_v);
 
+  char &operator[](const int r_v);
+
+  CMystring &operator+=(const CMystring &r_v);
+
+  CMystring &operator+=(CMystring &&r_v);
+
+  CMystring &operator+=(const char *r_v);
+
   friend CMystring operator+(const char *pChar, CMystring &&r_v);
 
   friend CMystring operator+(const char *pChar, CMystring &r_v);
+
+  friend const char *operator+=(const char *pChar, CMystring &&r_v);
+
+  friend const char *operator+=(const char *pChar, CMystring &r_v);
 
   // operator const char *();
   //-----------------------------------------------------------------//

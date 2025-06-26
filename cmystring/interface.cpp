@@ -4,28 +4,29 @@ using namespace std;
 
 int main()
 {
-  // CMystring ss("hello");
-  // CMystring xx(" world");
-  // CMystring zz = ss + move(xx);
+  CMystring aaa("aaa ");
+  CMystring bbb("bbb");
+  aaa += bbb;
+  printf("%s \t %d\n", aaa.get_string(), aaa.get_len());
 
-  CMystring haha("haha");
-  CMystring hihi("hihi");
-  CMystring tmp = haha.operator+(hihi);
+  CMystring ccc("ccc");
+  aaa += move(ccc);
+  printf("%s \t %d\n", aaa.get_string(), aaa.get_len());
 
-  CMystring aa;
-  CMystring ret1 = aa + "world";
+  aaa += "ddd";
+  printf("%s \t %d\n", aaa.get_string(), aaa.get_len());
 
-  CMystring cc("ccc");
-  CMystring ret3 = cc + "ddd";
+  CMystring fff("fff");
+  aaa += ("eee" += fff);
+  printf("%s \t %d\n", aaa.get_string(), aaa.get_len());
 
-  CMystring ff("fff");
-  CMystring ret4 = "ddd" + ff;
+  CMystring ggg("hello");
+  for (int i = 0; i < ggg.get_len() - 1; i++)
+  {
+    printf("%c\n", ggg.operator[](i));
+  }
 
-  printf("%s\n", ret1.get_string());
-
-  printf("%s\n", ret3.get_string());
-
-  printf("%s\n", ret4.get_string());
+  ggg[999];
 
   return 0;
 }
