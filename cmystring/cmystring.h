@@ -14,7 +14,7 @@ class CMystring
 {
 private:
   char *pchar = nullptr;
-  size_t st_len;
+  size_t st_len = 0;
 
 public:
   CMystring();
@@ -25,7 +25,7 @@ public:
 
   CMystring(CMystring &&r_v);
 
-  CMystring(const char *r_v);
+  explicit CMystring(const char *r_v);
   //-----------------------------------------------------------------//
   CMystring &operator=(const CMystring &r_v);
 
@@ -35,7 +35,13 @@ public:
 
   CMystring operator+(CMystring &&r_v);
 
-  operator const char *();
+  CMystring operator+(const char *r_v);
+
+  friend CMystring operator+(const char *pChar, CMystring &&r_v);
+
+  friend CMystring operator+(const char *pChar, CMystring &r_v);
+
+  // operator const char *();
   //-----------------------------------------------------------------//
 
   char *get_string() const;
@@ -44,5 +50,9 @@ public:
 
   void set_string(const char *cin);
 
-  char *make_plus(int len1, int len2, const CMystring &r_v);
+  char *append_1(int len1, int len2, const CMystring &r_v);
+
+  char *append_2(int len1, int len2, const char *pChar);
+
+  char *append_3(int len1, int len2, const char *pChar);
 };
