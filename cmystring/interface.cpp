@@ -1,32 +1,16 @@
-#include "cmystring.h"
+#include "cmystring_Ex.h"
 
 using namespace std;
 
 int main()
 {
-  CMystring aaa("aaa ");
-  CMystring bbb("bbb");
-  aaa += bbb;
-  printf("%s \t %d\n", aaa.get_string(), aaa.get_len());
+  CMystring_Ex aaa;
+  aaa.set_string("1 sex 1");
+  printf("%s\n", aaa.get_string());
 
-  CMystring ccc("ccc");
-  aaa += move(ccc);
-  printf("%s \t %d\n", aaa.get_string(), aaa.get_len());
-
-  aaa += "ddd";
-  printf("%s \t %d\n", aaa.get_string(), aaa.get_len());
-
-  CMystring fff("fff");
-  aaa += ("eee" += fff);
-  printf("%s \t %d\n", aaa.get_string(), aaa.get_len());
-
-  CMystring ggg("hello");
-  for (int i = 0; i < ggg.get_len() - 1; i++)
-  {
-    printf("%c\n", ggg.operator[](i));
-  }
-
-  ggg[999];
-
+  CMystring *bbb = new CMystring_Ex;
+  bbb->set_string("1 fuck 1");
+  printf("%s\n", bbb->get_string());
+  delete bbb;
   return 0;
 }

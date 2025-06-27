@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <cstddef>
+#include <regex>
 
 // C
 #include <stdlib.h>
@@ -19,7 +20,7 @@ private:
 public:
   CMystring();
 
-  ~CMystring();
+  virtual ~CMystring();
 
   CMystring(const CMystring &r_v);
 
@@ -62,7 +63,9 @@ public:
 
   size_t get_len() const;
 
-  void set_string(const char *cin);
+  virtual void set_string(const char *cin);
+
+  virtual bool set_(const char *&cin);
 
   char *append_1(int len1, int len2, const CMystring &r_v);
 

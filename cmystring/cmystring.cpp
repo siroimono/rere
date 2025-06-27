@@ -10,7 +10,7 @@ CMystring::CMystring()
 CMystring::~CMystring()
 {
   printf("~CMystring()\n");
-  free(this->pchar);
+  delete[] (this->pchar);
 }
 
 CMystring::CMystring(const CMystring &r_v)
@@ -22,7 +22,7 @@ CMystring::CMystring(const CMystring &r_v)
 CMystring::CMystring(CMystring &&r_v)
 {
   printf("CMystring(CMystring&& r_v) - move\n");
-  free(this->pchar);
+  delete[] (this->pchar);
   this->pchar = r_v.pchar;
   r_v.pchar = nullptr;
 }
@@ -44,7 +44,7 @@ CMystring &CMystring::operator=(const CMystring &r_v)
 CMystring &CMystring::operator=(CMystring &&r_v)
 {
   printf("CMystring::operator=(CMystring &&r_v)\n");
-  free(this->pchar);
+  delete[] (this->pchar);
   this->pchar = r_v.pchar;
   r_v.pchar = nullptr;
   return *this;
@@ -116,7 +116,7 @@ CMystring &CMystring::operator+=(const CMystring &r_v)
   int len1 = this->st_len;
   int len2 = r_v.st_len;
   char *p_tmpc = this->append_1(len1, len2, r_v);
-  free(this->pchar);
+  delete[] (this->pchar);
   this->pchar = p_tmpc;
   this->st_len = strlen(this->pchar);
   return *this;
@@ -129,7 +129,7 @@ CMystring &CMystring::operator+=(CMystring &&r_v)
   int len1 = this->st_len;
   int len2 = r_v.st_len;
   char *p_tmpc = this->append_1(len1, len2, r_v);
-  free(this->pchar);
+  delete[] (this->pchar);
   this->pchar = p_tmpc;
   this->st_len = strlen(this->pchar);
   return *this;
@@ -142,7 +142,7 @@ CMystring &CMystring::operator+=(const char *r_v)
   int len1 = this->st_len;
   int len2 = strlen(r_v);
   char *p_tmpc = this->append_3(len1, len2, r_v);
-  free(this->pchar);
+  delete[] (this->pchar);
   this->pchar = p_tmpc;
   this->st_len = strlen(this->pchar);
   return *this;
@@ -209,34 +209,50 @@ size_t CMystring::get_len() const
 
 void CMystring::set_string(const char *cin)
 {
+  if (set_(cin))
+  {
+    if (pchar != NULL)
+    {
+      delete[] (this->pchar);
+    }
+    this->pchar = new char[10];
+    strcpy(this->pchar, "fix_name");
+    return;
+  }
+
   if (pchar != NULL)
   {
-    free(this->pchar);
+    delete[] (this->pchar);
   }
   size_t st_len = strlen(cin) + 1;
   this->st_len = st_len;
-  this->pchar = (char *)malloc(st_len);
-  memset(this->pchar, 0, st_len);
+  this->pchar = new char[st_len];
   strcpy(this->pchar, cin);
+}
+
+bool CMystring::set_(const char *&cin) // virtual
+{
+  cout << "?" << endl;
+  return false;
 }
 
 char *CMystring::append_1(int len1, int len2, const CMystring &r_v)
 {
   if (this->pchar == nullptr && r_v.pchar != nullptr)
   {
-    char *p_tmpc = (char *)malloc((len2) + 1);
+    char *p_tmpc = new char[len2];
     strcpy(p_tmpc, r_v.pchar);
     return p_tmpc;
   }
   else if (r_v.pchar == nullptr && this->pchar != nullptr)
   {
-    char *p_tmpc = (char *)malloc((len1) + 1);
+    char *p_tmpc = new char[len1];
     strcpy(p_tmpc, this->pchar);
     return p_tmpc;
   }
   else if (this->pchar != nullptr && r_v.pchar != nullptr)
   {
-    char *p_tmpc = (char *)malloc((len1 + len2) + 1);
+    char *p_tmpc = new char[len1 + len2];
     strcpy(p_tmpc, this->pchar);
     strcat(p_tmpc, r_v.pchar);
     return p_tmpc;
@@ -247,19 +263,19 @@ char *CMystring::append_2(int len1, int len2, const char *pChar)
 {
   if (this->pchar == nullptr && pChar != nullptr)
   {
-    char *p_tmpc = (char *)malloc((len2) + 1);
+    char *p_tmpc = new char[len1];
     strcpy(p_tmpc, pChar);
     return p_tmpc;
   }
   else if (pChar == nullptr && this->pchar != nullptr)
   {
-    char *p_tmpc = (char *)malloc((len1) + 1);
+    char *p_tmpc = new char[len2];
     strcpy(p_tmpc, this->pchar);
     return p_tmpc;
   }
   else if (this->pchar != nullptr && pChar != nullptr)
   {
-    char *p_tmpc = (char *)malloc((len1 + len2) + 1);
+    char *p_tmpc = new char[len1 + len2];
     strcpy(p_tmpc, pChar);
     strcat(p_tmpc, this->pchar);
     return p_tmpc;
@@ -270,19 +286,19 @@ char *CMystring::append_3(int len1, int len2, const char *pChar)
 {
   if (this->pchar == nullptr && pChar != nullptr)
   {
-    char *p_tmpc = (char *)malloc((len2) + 1);
+    char *p_tmpc = new char[len2];
     strcpy(p_tmpc, pChar);
     return p_tmpc;
   }
   else if (pChar == nullptr && this->pchar != nullptr)
   {
-    char *p_tmpc = (char *)malloc((len1) + 1);
+    char *p_tmpc = new char[len1];
     strcpy(p_tmpc, this->pchar);
     return p_tmpc;
   }
   else if (this->pchar != nullptr && pChar != nullptr)
   {
-    char *p_tmpc = (char *)malloc((len1 + len2) + 1);
+    char *p_tmpc = new char[len1 + len2];
     strcpy(p_tmpc, this->pchar);
     strcat(p_tmpc, pChar);
     return p_tmpc;
